@@ -1,7 +1,7 @@
 export const config = {
-    "sessions": [
-        {
-            "cookie": `...`,
-        }
-    ]
-}
+  sessions: [
+    {
+      cookie: `...`,
+    },
+  ],
+};

@@ -1,0 +1,9 @@
+**/node_modules/
+dist/
+public/
+src-tauri/target/
+src-tauri/WixTools
+
+LICENSE
+**/*.md
+**/*.html
