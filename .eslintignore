@@ -1,8 +1,8 @@
 **/node_modules/
 dist/
 public/
-src-tauri/target/
-src-tauri/WixTools
+
+package-lock.yaml
 
 LICENSE
 **/*.md

@@ -3,12 +3,12 @@ import localtunnel from 'localtunnel';
 import ngrok from 'ngrok';
 import { v4 as uuidv4 } from 'uuid';
 
-import YouProvider from './provider.mjs';
-import { createEvent, getGitRevision } from './utils.mjs';
+import { createEvent, getGitRevision } from './utils/utils.mjs';
+import YouProvider from './you_providers/youProvider.mjs';
 
-import './proxyAgent.mjs';
+import './utils/proxyAgent.mjs';
 
-import SessionManager from './sessionManager.mjs';
+import SessionManager from './utils/sessionManager.mjs';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -63,7 +63,7 @@ const provider = new YouProvider(config);
 await provider.init(config);
 
 // 初始化 SessionManager
-const sessionManager = new SessionManager(provider.provider);
+const sessionManager = new SessionManager(provider);
 
 // handle preflight request
 app.use((req, res, next) => {

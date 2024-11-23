@@ -12,3 +12,4 @@ config.js
 config.mjs
 
 you_providers/local_copy_formatted_messages.txt
+startWithSSH.ps1

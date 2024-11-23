@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 安装依赖包
-npm install
+pnpm install
 
 # 设置代理的网站：you、perplexity、happyapi
 export ACTIVE_PROVIDER=you
