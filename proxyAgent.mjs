@@ -46,7 +46,7 @@ function parseProxyUrl(proxyUrl) {
       password,
     };
   } catch (error) {
-    console.error(`Invalid proxy URL: ${proxyUrl}`);
+    console.error(`无效的代理 URL：${proxyUrl}`);
     return null;
   }
 }
@@ -54,17 +54,17 @@ function parseProxyUrl(proxyUrl) {
 function createProxyAgent() {
   const proxyUrl = getProxyUrl();
   if (!proxyUrl) {
-    console.log('Proxy environment variable not set, will not use proxy.');
+    console.log('未设置代理环境变量，将不使用代理');
     return null;
   }
 
   const parsedProxy = parseProxyUrl(proxyUrl);
   if (!parsedProxy) return null;
 
-  console.log(`Using proxy: ${proxyUrl}`);
+  console.log(`使用代理：${proxyUrl}`);
 
   if (parsedProxy.protocol === 'socks5') {
-    console.log('Using SOCKS5 proxy');
+    console.log('使用 SOCKS5 代理');
     return new SocksProxyAgent({
       hostname: parsedProxy.host,
       port: parsedProxy.port,
@@ -73,7 +73,7 @@ function createProxyAgent() {
       protocol: 'socks5:',
     });
   } else {
-    console.log('Using HTTP/HTTPS proxy');
+    console.log('使用 HTTP/HTTPS 代理');
     return new HttpsProxyAgent.HttpsProxyAgent(proxyUrl);
   }
 }
@@ -103,9 +103,9 @@ export function setGlobalProxy() {
       return originalHttpsRequest.call(this, options, callback);
     };
 
-    console.log(`Global proxy set to: ${proxyUrl}`);
+    console.log(`全局代理设置为：${proxyUrl}`);
   } else {
-    console.log('No proxy environment variable set, global proxy not configured.');
+    console.log('未设置代理环境变量，未配置全局代理');
   }
 }
 
@@ -114,7 +114,7 @@ export function setProxyEnvironmentVariables() {
   if (proxyUrl) {
     process.env.HTTP_PROXY = proxyUrl;
     process.env.HTTPS_PROXY = proxyUrl;
-    console.log(`Set proxy environment variables to: ${proxyUrl}`);
+    console.log(`设置代理环境变量为：${proxyUrl}`);
   }
 }
 

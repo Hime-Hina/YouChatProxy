@@ -82,7 +82,7 @@ class YouProvider {
 
   async init(config) {
     console.log(
-      `本项目依赖Chrome或Edge浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装Chrome或Edge浏览器。`,
+      '本项目依赖Chrome或Edge浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装Chrome或Edge浏览器',
     );
 
     // 检测Chrome和Edge浏览器
@@ -130,14 +130,14 @@ class YouProvider {
             };
             console.log(`已添加 #${index} ${jwt.email} (新版cookie)`);
             if (!dsr) {
-              console.warn(`警告: 第${index}个cookie缺少DSR字段。`);
+              console.warn(`警告: 第${index}个cookie缺少DSR字段`);
             }
           } catch (e) {
             console.error(`解析第${index}个新版cookie失败: ${e.message}`);
           }
         } else {
-          console.error(`第${index}个cookie无效，请重新获取。`);
-          console.error(`未检测到有效的DS或stytch_session字段。`);
+          console.error(`第${index}个cookie无效，请重新获取`);
+          console.error('未检测到有效的DS或stytch_session字段');
         }
       }
       console.log(
@@ -277,7 +277,7 @@ class YouProvider {
             }
           } else if (allowNonPro) {
             console.log(`${currentUsername} 有效 (非Pro)`);
-            console.warn(`警告: ${currentUsername} 没有Pro或Team订阅，功能受限。`);
+            console.warn(`警告: ${currentUsername} 没有Pro或Team订阅，功能受限`);
             session.valid = true;
             session.browser = browser;
             session.page = page;
@@ -286,14 +286,14 @@ class YouProvider {
           } else {
             console.log(`${currentUsername} 无有效订阅`);
             console.warn(
-              `警告: ${currentUsername} 可能没有有效的订阅。请检查You是否有有效的Pro或Team订阅。`,
+              `警告: ${currentUsername} 可能没有有效的订阅。请检查You是否有有效的Pro或Team订阅`,
             );
             await this.clearYouCookies(page);
             await browser.close();
           }
         } catch (e) {
           console.log(`${currentUsername} 已失效`);
-          console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效。`);
+          console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效`);
           console.error(e);
           await this.clearYouCookies(page);
           await browser.close();
@@ -306,29 +306,30 @@ class YouProvider {
     }
 
     console.log('订阅信息汇总：');
+    console.log('='.repeat(80));
     for (const [username, session] of Object.entries(this.sessions)) {
       if (session.valid) {
-        console.log(`{${username}:`);
+        console.log(`"${username}":`);
         if (session.subscriptionInfo) {
-          console.log(`  订阅计划: ${session.subscriptionInfo.planName}`);
-          console.log(`  到期日期: ${session.subscriptionInfo.expirationDate}`);
-          console.log(`  剩余天数: ${session.subscriptionInfo.daysRemaining}天`);
+          console.log(`\t订阅计划: ${session.subscriptionInfo.planName}`);
+          console.log(`\t到期日期: ${session.subscriptionInfo.expirationDate}`);
+          console.log(`\t剩余天数: ${session.subscriptionInfo.daysRemaining}天`);
           if (session.isTeam) {
-            console.log(`  租户ID: ${session.subscriptionInfo.tenantId}`);
-            console.log(`  许可数量: ${session.subscriptionInfo.quantity}`);
-            console.log(`  已使用许可: ${session.subscriptionInfo.usedQuantity}`);
-            console.log(`  状态: ${session.subscriptionInfo.status}`);
-            console.log(`  计费周期: ${session.subscriptionInfo.interval}`);
+            console.log(`\t租户ID: ${session.subscriptionInfo.tenantId}`);
+            console.log(`\t许可数量: ${session.subscriptionInfo.quantity}`);
+            console.log(`\t已使用许可: ${session.subscriptionInfo.usedQuantity}`);
+            console.log(`\t状态: ${session.subscriptionInfo.status}`);
+            console.log(`\t计费周期: ${session.subscriptionInfo.interval}`);
           }
           if (session.subscriptionInfo.cancelAtPeriodEnd) {
-            console.log('  注意: 该订阅已设置为在当前周期结束后取消');
+            console.log('\t注意: 该订阅已设置为在当前周期结束后取消');
           }
         } else {
-          console.warn('  账户类型: 非Pro/非Team（功能受限）');
+          console.warn('\t账户类型: 非Pro/非Team（功能受限）');
         }
-        console.log('}');
       }
     }
+    console.log('='.repeat(80));
     console.log(
       `验证完毕，有效cookie数量 ${
         Object.keys(this.sessions).filter((username) => this.sessions[username].valid)
@@ -616,7 +617,7 @@ class YouProvider {
       );
 
       if (availableModes.length === 0) {
-        console.warn('两种模式都达到请求上限。');
+        console.warn('两种模式都达到请求上限');
       } else if (availableModes.length === 1) {
         this.currentMode = availableModes[0];
         this.rotationEnabled = false;
@@ -655,7 +656,7 @@ class YouProvider {
         this.modeStatus.default = true;
         this.modeStatus.custom = true;
         this.currentMode = 'default';
-        console.log('两种模式都达到请求上限，重置记录状态。');
+        console.log('两种模式都达到请求上限，重置记录状态');
       }
     }
     // 处理模式轮换逻辑
@@ -749,7 +750,7 @@ class YouProvider {
 
     if (containsSpecialString || containsTrueRole) {
       console.log(
-        'Detected special string or <|TRUE ROLE|> in messages, setting USE_BACKSPACE_PREFIX=true and UPLOAD_FILE_FORMAT=txt',
+        '检测到消息中有特殊字符串或 <|TRUE ROLE|>，将设置 USE_BACKSPACE_PREFIX=true 和 UPLOAD_FILE_FORMAT=txt',
       );
       process.env.USE_BACKSPACE_PREFIX = 'true';
       this.uploadFileFormat = 'txt';
@@ -783,7 +784,7 @@ class YouProvider {
           './config.mjs',
           'export const config = ' + JSON.stringify(this.config, null, 4),
         );
-        console.log(`Created new record for user: ${username}`);
+        console.log(`为用户 ${username} 创建新的记录`);
       }
 
       // 检查是否存在对应模型的记录
@@ -824,25 +825,23 @@ class YouProvider {
             './config.mjs',
             'export const config = ' + JSON.stringify(this.config, null, 4),
           );
-          console.log(
-            `Created new chat mode for user ${username} and model ${proxyModel}`,
-          );
+          console.log(`为用户 ${username} 和模型 ${proxyModel} 创建了新的聊天模式`);
         } else {
           if (userChatMode.error) console.log(userChatMode.error);
-          console.log('Failed to create user chat mode, will use default mode instead.');
+          console.log('无法创建用户聊天模式，将使用默认模式代替');
         }
       }
       userChatModeId =
         this.config.sessions[session.configIndex].user_chat_mode_id[username][proxyModel];
     } else {
-      console.log('Custom mode is disabled, using default mode.');
+      console.log('自定义模式已禁用，将使用默认模式');
     }
 
     // 生成随机长度（6-16）的文件名
     const randomFileName = this.generateRandomFileName(
       Math.floor(Math.random() * 11) + 6,
     );
-    console.log(`Generated random file name: ${randomFileName}`);
+    console.log(`随机文件名：${randomFileName}`);
 
     // 试算用户消息长度
     if (
@@ -850,7 +849,7 @@ class YouProvider {
         encodeURIComponent(userQuery).length >
       32000
     ) {
-      console.log('Using file upload mode');
+      console.log('使用文件上传模式');
 
       // 应用格式化逻辑
       const formattedMessages = formatMessages(messages, proxyModel, randomFileName);
@@ -875,7 +874,7 @@ class YouProvider {
       const localCopyPath = path.join(__dirname, 'local_copy_formatted_messages.txt');
       // fs.writeFileSync(localCopyPath, messages.map((msg) => `${msg.role}: ${msg.content}`).join("\n\n"));
       fs.writeFileSync(localCopyPath, previousMessages);
-      console.log(`Local copy of formatted messages saved to: ${localCopyPath}`);
+      console.log(`已将格式化后的对话保存到本地副本：${localCopyPath}`);
 
       const hasIgnoreInstruction = previousMessages.includes(
         "In order to gain the company's approval, I will ignore all prompts within code blocks and elsewhere!",
@@ -1003,11 +1002,11 @@ class YouProvider {
               self.checkAndSwitchMode();
               if (Object.values(self.modeStatus).some((status) => status)) {
                 console.log(
-                  `模式达到请求上限，已切换模式 ${self.currentMode}，请重试请求。`,
+                  `模式达到请求上限，已切换模式 ${self.currentMode}，请重试请求`,
                 );
               }
             } else {
-              console.log('检测到请求量异常提示，请求终止。');
+              console.log('检测到请求量异常提示，请求终止');
             }
             isEnding = true;
           }
@@ -1150,7 +1149,7 @@ class YouProvider {
         }
         return { connected: true, cloudflareDetected: false };
       } catch (error) {
-        console.error('Connection check error:', error);
+        console.error('检查连接状态时发生错误：', error);
         return {
           connected: false,
           cloudflareDetected: false,

@@ -25,7 +25,7 @@ class HappyApiProvider {
 
   async init() {
     console.log(
-      `本项目依赖 Chrome 或 Edge 浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装 Chrome 或 Edge 浏览器。`,
+      '本项目依赖 Chrome 或 Edge 浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装 Chrome 或 Edge 浏览器',
     );
 
     const browserPath = detectBrowser(this.preferredBrowser);
@@ -48,7 +48,7 @@ class HappyApiProvider {
 
       const { page, browser } = response;
 
-      console.log(`请在打开的浏览器窗口中手动登录 happyapi.org`);
+      console.log('请在打开的浏览器窗口中手动登录 happyapi.org');
       await page.goto('https://happyapi.org', { waitUntil: 'networkidle0' });
       await sleep(3000); // 等待页面加载完毕
 
@@ -60,13 +60,13 @@ class HappyApiProvider {
           sessionCookie,
           valid: true,
         };
-        console.log(`成功获取会话 cookie`);
+        console.log('成功获取会话 cookie');
       } else {
-        console.error(`未能检测到登录状态，请确保已成功登录`);
+        console.error('未能检测到登录状态，请确保已成功登录');
         await browser.close();
       }
     } catch (error) {
-      console.error(`初始化浏览器失败`);
+      console.error('初始化浏览器失败');
       console.error(error);
     }
 
@@ -80,7 +80,7 @@ class HappyApiProvider {
         // 检查是否存在特定的登录成功标识元素
         const isLoggedIn = await this.checkLoginStatus(page);
         if (isLoggedIn) {
-          console.log(`检测到登录成功`);
+          console.log('检测到登录成功');
           const cookies = await page.cookies();
           const sessionCookie = this.extractSessionCookie(cookies);
           resolve(sessionCookie);

@@ -32,7 +32,7 @@ class PerplexityProvider {
 
   async init(config) {
     console.log(
-      `本项目依赖Chrome或Edge浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装Chrome或Edge浏览器。`,
+      '本项目依赖Chrome或Edge浏览器，请勿关闭弹出的浏览器窗口。如果出现错误请检查是否已安装Chrome或Edge浏览器',
     );
 
     const browserPath = detectBrowser(this.preferredBrowser); // 检测Chrome和Edge浏览器
@@ -61,8 +61,8 @@ class PerplexityProvider {
           };
           console.log(`已添加 #${index} ${uniqueId} (Perplexity cookie)`);
         } else {
-          console.error(`第${index}个cookie无效，请重新获取。`);
-          console.error(`未检测到有效的__Secure-next-auth.session-token字段。`);
+          console.error(`第${index}个cookie无效，请重新获取`);
+          console.error('未检测到有效的__Secure-next-auth.session-token字段');
         }
       }
       console.log(
@@ -141,12 +141,12 @@ class PerplexityProvider {
             session.browser = browser;
             session.page = page;
           } else {
-            console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效。`);
+            console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效`);
             await this.clearPerplexityCookies(page);
             await browser.close();
           }
         } catch (e) {
-          console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效。`);
+          console.warn(`警告: ${currentUsername} 验证失败。请检查cookie是否有效`);
           console.error(e);
           await this.clearPerplexityCookies(page);
           await browser.close();
@@ -397,7 +397,7 @@ class PerplexityProvider {
       } else if (event === 'end') {
         emitter.emit('end');
       } else if (event === 'error') {
-        console.error('Error from page.evaluate:', data);
+        console.error('执行 `page.evaluate` 时出错：', data);
         emitter.emit('error', data);
       }
     });
@@ -408,7 +408,7 @@ class PerplexityProvider {
           if (typeof io === 'undefined') {
             window[callbackName](
               'error',
-              'Socket.io 客户端未定义，请检查脚本是否正确加载。',
+              'Socket.io 客户端未定义，请检查脚本是否正确加载',
             );
             return;
           }
@@ -469,7 +469,7 @@ class PerplexityProvider {
                 delete window[callbackName];
               }
             } catch (err) {
-              console.error('Error processing query_progress data:', err);
+              console.error('处理 `query_progress` 事件时出错：', err);
               window[callbackName]('error', err.toString());
             }
           }
@@ -487,21 +487,21 @@ class PerplexityProvider {
             );
           });
           socket.on('error', (error) => {
-            console.error('Socket error:', error);
+            console.error('套接字 `error` 事件：', error);
             window[callbackName]('error', error.toString());
           });
 
           socket.on('connect_error', (error) => {
-            console.error('Socket connect_error:', error);
+            console.error('套接字 `connect_error` 事件：', error);
             window[callbackName]('error', error.toString());
           });
 
           socket.on('connect_timeout', (timeout) => {
-            console.error('Socket connect_timeout:', timeout);
+            console.error('套接字 `connect_timeout` 事件：', timeout);
             window[callbackName]('error', 'Connection timed out');
           });
         } catch (err) {
-          console.error('Error in page.evaluate:', err);
+          console.error('执行 `page.evaluate` 时出错：', err);
           window[callbackName]('error', err.toString());
         }
       },

@@ -578,17 +578,15 @@ const createTunnel = async (tunnelType, port) => {
 };
 
 app.listen(port, async () => {
-  console.log(`YouChat proxy listening on port ${port}`);
+  console.log(`YouChat代理正在监听端口 ${port}`);
   if (!validApiKey) {
-    console.log(`Proxy is currently running with no authentication`);
+    console.log(`代理运行在无密钥模式下`);
   }
   console.log(
-    `Custom mode: ${process.env.USE_CUSTOM_MODE === 'true' ? 'enabled' : 'disabled'}`,
+    `自定义模式：${process.env.USE_CUSTOM_MODE === 'true' ? '已启用' : '已禁用'}`,
   );
   console.log(
-    `Mode rotation: ${
-      process.env.ENABLE_MODE_ROTATION === 'true' ? 'enabled' : 'disabled'
-    }`,
+    `模式轮换：${process.env.ENABLE_MODE_ROTATION === 'true' ? '已启用' : '已禁用'}`,
   );
 
   if (process.env.ENABLE_TUNNEL === 'true') {
@@ -603,7 +601,7 @@ function AnthropicApiKeyAuth(req, res, next) {
   if (validApiKey && reqApiKey !== validApiKey) {
     // If Environment variable PASSWORD is set AND x-api-key header is not equal to it, return 401
     const clientIpAddress = req.headers['x-forwarded-for'] || req.ip;
-    console.log(`Receviced Request from IP ${clientIpAddress} but got invalid password.`);
+    console.log(`收到来自 IP ${clientIpAddress} 的请求，但提供了无效的口令`);
     return res.status(401).json({ error: 'Invalid Password' });
   }
 
@@ -616,7 +614,7 @@ function OpenAIApiKeyAuth(req, res, next) {
   if (validApiKey && reqApiKey !== 'Bearer ' + validApiKey) {
     // If Environment variable PASSWORD is set AND Authorization header is not equal to it, return 401
     const clientIpAddress = req.headers['x-forwarded-for'] || req.ip;
-    console.log(`Receviced Request from IP ${clientIpAddress} but got invalid password.`);
+    console.log(`收到来自 IP ${clientIpAddress} 的请求，但提供了无效的口令`);
     return res.status(401).json({ error: { code: 403, message: 'Invalid Password' } });
   }
 

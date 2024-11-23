@@ -21,16 +21,16 @@ class ProviderManager {
         break;
       default:
         throw new Error(
-          'Invalid ACTIVE_PROVIDER. Use "you", "perplexity", or "happyapi".',
+          'ACTIVE_PROVIDER 无效。可用的值包括 "you" "perplexity" "happyapi"',
         );
     }
 
-    console.log(`Initialized with ${activeProvider} provider.`);
+    console.log(`使用 Provider "${activeProvider}" 初始化`);
   }
 
   async init() {
     await this.provider.init(this.provider.config);
-    console.log(`Provider initialized.`);
+    console.log('Provider 初始化完成');
   }
 
   async getCompletion(params) {
