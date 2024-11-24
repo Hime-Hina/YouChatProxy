@@ -4,12 +4,13 @@ node_modules/
 
 browser_profiles/
 
+.env
+
 start.ps1
+startWithSSH.ps1
 
 test.js
 test.mjs
-config.js
-config.mjs
+config.*
 
-you_providers/local_copy_formatted_messages.txt
-startWithSSH.ps1
+local_copy_formatted_messages.txt

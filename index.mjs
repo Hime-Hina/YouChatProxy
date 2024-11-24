@@ -4,7 +4,7 @@ import ngrok from 'ngrok';
 import { v4 as uuidv4 } from 'uuid';
 
 import { createEvent, getGitRevision } from './utils/utils.mjs';
-import YouProvider from './you_providers/youProvider.mjs';
+import YouProvider from './youProvider.mjs';
 
 import './utils/proxyAgent.mjs';
 
@@ -525,7 +525,7 @@ const createLocaltunnel = async (port, subdomain) => {
 
   try {
     const tunnel = await localtunnel(tunnelOptions);
-    console.log(`隧道已成功创建，可通过以下URL访问: ${tunnel.url}/v1`);
+    console.log(`隧道已成功创建，可通过以下URL访问：${tunnel.url}/v1`);
     tunnel.on('close', () => console.log('已关闭隧道'));
     return tunnel;
   } catch (error) {
@@ -549,14 +549,14 @@ const createNgrok = async (port, authToken, customDomain, subdomain) => {
 
   try {
     const url = await ngrok.connect(ngrokOptions);
-    console.log(`隧道已成功创建，可通过以下URL访问: ${url}/v1`);
+    console.log(`隧道已成功创建，可通过以下URL访问：${url}/v1`);
     process.on('SIGTERM', async () => {
       await ngrok.kill();
       console.log('已关闭隧道');
     });
     return url;
   } catch (error) {
-    console.error('创建ngrok隧道失败:', error);
+    console.error('创建ngrok隧道失败：', error);
   } finally {
     if (originalHttpProxy) process.env.HTTP_PROXY = originalHttpProxy;
     if (originalHttpsProxy) process.env.HTTPS_PROXY = originalHttpsProxy;

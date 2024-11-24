@@ -3,9 +3,6 @@
 # 安装依赖包
 pnpm install
 
-# 设置代理的网站：you、perplexity、happyapi
-export ACTIVE_PROVIDER=you
-
 # 设置是否启用手动登录
 export USE_MANUAL_LOGIN=true
 
