@@ -93,13 +93,15 @@
 
 #### 步骤 2：启动服务并手动登录
 
-1. **双击运行 `start.bat`。**
+1. **重命名 `config.example.mjs` 文件，将文件另存为 `config.mjs`。**
 
-2. **程序将启动并自动打开浏览器窗口。**
+2. **双击运行 `start.bat`。**
 
-3. **在弹出的浏览器窗口中手动登录的 You.com 账户。**
+3. **程序将启动并自动打开浏览器窗口。**
 
-4. **登录成功后，程序将自动获取的会话信息。**
+4. **在弹出的浏览器窗口中手动登录的 You.com 账户。**
+
+5. **登录成功后，程序将自动获取的会话信息。**
 
 #### 步骤 3：配置客户端
 
@@ -117,6 +119,7 @@
 set http_proxy=http://127.0.0.1:7890
 set https_proxy=http://127.0.0.1:7890
 ```
+*(启动浏览器闪退时，移除代理)*
 
 This project uses the local Chrome browser, which will automatically read and use the system proxy settings.
 
